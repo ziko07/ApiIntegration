@@ -1,0 +1,212 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.content-wrapper {
+  float: left;
+  width: calc(100% - 400px);
+  position: relative;
+  padding: 20px;
+}
+
+.top-banner {
+  height: 10px;
+  width: 100%;
+  background: #FFAC30;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  float: left;
+  background: #fdfdfd;
+  border: 1px solid #CCCCCC;
+  border-top: 0px;
+  padding: 0 15px 0 5px;
+  min-height: 640px; ;
+  width: 362px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  width: 170px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  background-color: #ccc;
+  border-bottom: 1px solid white;
+  line-height: 60px;
+  a {
+    display: block;
+    text-decoration: none;
+    color:  #8C8782;
+    padding: 0 8px;
+    font-size: 18px;
+    outline: none;
+  }
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+.submenu {
+  height: 100%;
+  list-style: outside none none;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 175px;
+  border: 3px solid #FFAC30;
+  border-top: none;
+  a:hover {
+    color: #FFAE30;
+  }
+}
+.hidden{
+  visibility: hidden;
+}
+
+.submenu li {
+  background: #ffffff;
+  padding-left: 30px;
+}
+
+.submenu li a{
+  font-size: 16px;
+}
+.submenu .divider{
+  border-bottom: 1px solid #FFAC30;
+  display: block;
+  width:130px;
+}
+
+.active_bar{
+  background: #FFAC30;
+}
+
+/* Have to move */
+
+.inventory-title {
+  border-bottom: 2px solid #ffac30;
+  font-family: "Anonymous Pro","Inconsolata","Menlo","Consolas","Bitstream Vera Sans Mono","Courier New",monospace;
+  font-size: 30px;
+  margin: 0 0 10px 0;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.signup_login{
+  width:100%;
+  margin: auto;
+  padding: auto;
+}
+
+.signup{
+  float: left;
+  display: inline-block;
+  width: 45%;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px ;
+}
+
+.login{
+  float: left;
+  display: inline-block;
+  width: 45%;
+  border: 1px solid #CCCCCC;
+  min-height: 283px;
+  border-radius: 5px;
+}
+
+.signup .field{
+  padding: 10px;
+}
+.login .field{
+  padding: 10px;
+}
+
+.signup .actions{
+  float: right;
+  padding-right: 10px;
+}
+
+.login .actions{
+  float: right;
+  padding-right: 10px;
+}
+
+.or_div{
+  float: left;
+  min-height: 283px;
+  width:0px;
+  border: 1px solid #CCCCCC;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.line_top{
+  border-right: 2px solid #CCCCCC;
+  height: 125px;
+  margin-right: 14px;
+}
+
+.mid_circle{
+  background: #fff none repeat scroll 0 0;
+  border: 2px solid #cccccc;
+  border-radius: 50%;
+  height: 30px;
+  padding: 3px;
+  position: absolute;
+  right: -15px;
+  top: calc(50% - 15px);
+  width: 30px;
+}
