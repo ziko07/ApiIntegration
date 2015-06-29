@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable
-
+  mount_uploader :image, ImageUploader
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        user = User.create(
+        puts(auth.inspect)
+        user = User.create(:name => auth.info.name,
+                           :remote_photo_url => auth.info.image,
                            :provider => auth.provider,
                            :uid => auth.uid,
                            :email => auth.info.email,
@@ -34,11 +36,31 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        user = User.create(:name => data["name"],
+        user = User.create(
                            :provider => access_token.provider,
                            :email => data["email"],
+                           :remote_photo_url => data["image"],
                            :uid => access_token.uid ,
                            :password => Devise.friendly_token[0,20]
+        )
+      end
+    end
+  end
+
+  def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    if user
+      return user
+    else
+      registered_user = User.where(:email => auth.uid + "@twitter.com").first
+      if registered_user
+        return registered_user
+      else
+        user = User.create(provider:auth.provider,
+                           uid:auth.uid,
+                           email:auth.uid+"@twitter.com",
+                           password:Devise.friendly_token[0,20]
         )
       end
     end

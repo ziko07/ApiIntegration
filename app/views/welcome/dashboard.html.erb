@@ -1,1 +1,5 @@
 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+<li class='profile'>
+  <%= image_tag(get_photo(current_user.id), :width => '35', :class => 'img-circle') %>
+  <b> <%= current_user.name %> </b>
+</li>

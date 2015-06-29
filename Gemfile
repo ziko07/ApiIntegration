@@ -5,8 +5,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
 # Use mysql as the database for Active Record
 gem 'mysql2'
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,7 +28,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+gem 'rmagick'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
