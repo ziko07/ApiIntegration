@@ -21,4 +21,20 @@ class WelcomeController < ApplicationController
   def dashboard
 
   end
+
+  def facebook_share
+
+  end
+
+  def gmail_share
+
+  end
+
+  def twitter_share
+
+  end
+
+  def opengraph
+    render :layout=> 'opengraph_protocol'
+  end
 end

@@ -1,0 +1,45 @@
+<h1 class="page-top-title">Welcome to Facebook Shareing</h1>
+<div class="fb_login panel-default centralized">
+  <div class="panel-heading">Share With FaceBook
+  </div>
+  <div class="panel-body">
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+            <h4 class="modal-title" id="myModalLabel">Share With Google+</h4>
+          </div>
+          <div class="modal-body">
+            <textarea id="google_share_message" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="facebook_share()">Share</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <a href="#" class="btn btn-lg btn-social btn-facebook"
+         data-toggle="modal"
+         data-target="#basicModal"><i class="fa fa-facebook"></i> Share with Facebook</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var html_value = "";
+
+    function facebook_share()
+    {
+        var value = $('#twitter_share_message').val();
+        var url = "http://www.facebook.com/sharer.php?u=http://127.0.0.1:3000/&text=I just DID it! "+ value +" ";
+        window.open(url, 'newWindow', 'width=626, height=436');
+    }
+
+
+</script>
