@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ resource :payments
   #devise_for :users
   get 'welcome/index'
 
@@ -9,8 +10,12 @@ Rails.application.routes.draw do
     root 'welcome#index'
     get 'devise' => 'welcome#devise'
     get 'facebook' => 'welcome#facebook'
+    get 'facebook_share' => 'welcome#facebook_share'
     get 'gmail' => 'welcome#gmail'
+    get 'gmail_share' => 'welcome#gmail_share'
     get 'twitter' => 'welcome#twitter'
+    get 'twitter_share' => 'welcome#twitter_share'
+    get 'opengraph' => 'welcome#opengraph'
     get 'dashboard' => 'welcome#dashboard'
    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   # Example of regular route:

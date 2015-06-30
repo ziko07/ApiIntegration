@@ -34,7 +34,7 @@
     <li>
       <a href="#"><i class="fa fa-usd"></i> Payment</a>
       <ul class="submenu hidden">
-        <li> <a href="#"> <i class="fa fa-credit-card"></i> Credit Card </a></li>
+        <li><%= link_to(raw('<i class="fa fa-credit-card"> </i> Credit Card'), new_payments_path, :method => :get) %></li>
         <li> <a href="#"> <i class="fa fa-cc-stripe"></i></i> Paypal </a></li>
         <li> <a href="#"> <i class="fa fa-cc-stripe"></i> Stripe </a></li>
         <li> <a href="#"> <i class="fa fa-circle"></i> Payson </a></li>

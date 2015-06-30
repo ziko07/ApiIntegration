@@ -1,0 +1,9 @@
+<h1>Payment Attempts</h1>
+<div class="well">
+  <%= link_to "New Payment", new_payments_path, class: "btn btn-primary" %>
+</div>
+<% if !flash[:notice].blank? %>
+    <div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+<% end %>
