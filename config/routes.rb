@@ -2,7 +2,12 @@ Rails.application.routes.draw do
  resource :payments
   #devise_for :users
   get 'welcome/index'
-
+  get 'payment_paypal' => 'payments#payment_paypal'
+  get 'payment_stripe' => 'payments#payment_stripe'
+  get 'payment_with_paypal' => 'payments#payment_with_paypal'
+  get 'payment_with_stripe' => 'payments#payment_with_stripe'
+  get 'payment_cancel' => 'payments#payment_cancel'
+  get 'payment_success' => 'payments#paypal_success'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

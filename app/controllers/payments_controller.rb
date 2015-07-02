@@ -42,4 +42,68 @@ class PaymentsController < ApplicationController
 
   end
 
+  def payment_paypal
+    amount = params[:amount].to_i
+    quantity = params[:quantity].to_s
+   ActiveMerchant::Billing::Base.mode = :test
+    express_getway = ActiveMerchant::Billing::PaypalExpressGateway.new(
+        login: "zikoku07-facilitator_api1.gmail.com",
+        password: "77DPK9X965F3JW4Z",
+        signature: "A85Hr-KISUz.LRffVOzrZps10CGNAUlG7tNjw9UETuohRAhNth1bGHU5"
+    )
+
+
+  response = express_getway.setup_purchase(amount,
+                                                {cancel_return_url: payment_cancel_url,
+                                                return_url: payment_success_url,
+                                                currency: "USD",
+                                                allow_guest_checkout: true,
+                                                items: [{name: "Order", description: "Order description", quantity: "1", amount: amount}]}
+      )
+      redirect_to express_getway.redirect_url_for(response.token)
+
+  end
+
+  def paypal_success
+    details = EXPRESS_GATEWAY.details_for(params[:token])
+  end
+
+  def paypal_cancel
+
+  end
+
+  def payment_with_paypal
+
+  end
+
+  def payment_with_stripe
+
+  end
+
+  def payment_stripe
+    transaction = ActiveMerchant::Billing::StripeGateway.new(:login => 'sk_test_WMwFf4Euu4Hi6570qcEFy1na')
+
+    paymentInfo = ActiveMerchant::Billing::CreditCard.new(
+        :number             => "4242424242424242",
+        :month              => "12",
+        :year               => "2020",
+        :verification_value => "411")
+
+    purchaseOptions = {:billing_address => {
+        :name     => "Customer Name",
+        :address1 => "Customer Address Line 1",
+        :city     => "Customer City",
+        :state    => "Customer State",
+        :zip      => "Customer Zip Code"
+    }}
+
+    response = transaction.purchase((17.50 * 100).to_i, paymentInfo, purchaseOptions)
+
+    if response.success? then
+      puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+      puts(response.inspect)
+      puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+    end
+  end
+
 end

@@ -14,5 +14,9 @@ class Payment < ActiveRecord::Base
   validates :expiration_year, presence: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
 
+  def get_details(token)
+    EXPRESS_GATEWAY.details_for(token)
+  end
+
 end
 

@@ -35,9 +35,8 @@
       <a href="#"><i class="fa fa-usd"></i> Payment</a>
       <ul class="submenu hidden">
         <li><%= link_to(raw('<i class="fa fa-credit-card"> </i> Credit Card'), new_payments_path, :method => :get) %></li>
-        <li> <a href="#"> <i class="fa fa-cc-stripe"></i></i> Paypal </a></li>
-        <li> <a href="#"> <i class="fa fa-cc-stripe"></i> Stripe </a></li>
-        <li> <a href="#"> <i class="fa fa-circle"></i> Payson </a></li>
+        <li><%= link_to(raw('<i class="fa fa-cc-paypal"> </i> PayPal'), payment_with_paypal_path, :method => :get) %></li>
+        <li><%= link_to(raw('<i class="fa fa-cc-stripe"> </i> Stripe'), payment_with_stripe_path, :method => :get) %></li>
       </ul>
     </li>
   </ul>

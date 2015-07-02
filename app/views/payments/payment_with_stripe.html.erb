@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <h1>New Payment</h1>
+    <div class="well">
+      <%= form_tag("/payment_stripe", method: "get") do %>
+          <div class="form-group">
+            <%= label_tag(:name, "First Name",class: "control-label" ) %>
+            <%= text_field_tag :name , nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:card_no, "Last Name",class: "control-label" ) %>
+            <%= text_field_tag :card_no, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:amount, "Amount",class: "control-label" ) %>
+            <%= text_field_tag :amount, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:expiration_month, "Expire Month",class: "control-label" ) %>
+            <%= select :expiration_month,{}, months,{},class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= label_tag(:expiration_year, "Expire Year",class: "control-label" ) %>
+            <%= select :expiration_year,{}, years,{}, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= submit_tag "Charge Stripe", class: "btn btn-primary" %>
+          </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
