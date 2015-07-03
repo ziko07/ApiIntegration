@@ -82,27 +82,26 @@ class PaymentsController < ApplicationController
 
   def payment_stripe
     transaction = ActiveMerchant::Billing::StripeGateway.new(:login => 'sk_test_WMwFf4Euu4Hi6570qcEFy1na')
-
+      amount = params[:amount].to_i
     paymentInfo = ActiveMerchant::Billing::CreditCard.new(
-        :number             => "4242424242424242",
-        :month              => "12",
-        :year               => "2020",
+        :number             => params[:card_no],
+        :month              => params[:expiration_month],
+        :year               => params[:expiration_year],
         :verification_value => "411")
 
     purchaseOptions = {:billing_address => {
-        :name     => "Customer Name",
-        :address1 => "Customer Address Line 1",
-        :city     => "Customer City",
-        :state    => "Customer State",
-        :zip      => "Customer Zip Code"
+        :name     => params[:name],
+        :address1 => params[:address],
+        :city     => params[:city],
+        :zip      => params[:zip]
     }}
 
-    response = transaction.purchase((17.50 * 100).to_i, paymentInfo, purchaseOptions)
-
+    response = transaction.purchase((amount * 100).to_i, paymentInfo, purchaseOptions)
+    puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+    puts(response.inspect)
+    puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
     if response.success? then
-      puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-      puts(response.inspect)
-      puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+
     end
   end
 

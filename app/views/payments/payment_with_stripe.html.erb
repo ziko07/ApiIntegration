@@ -9,7 +9,7 @@
           </div>
 
           <div class="form-group">
-            <%= label_tag(:card_no, "Last Name",class: "control-label" ) %>
+            <%= label_tag(:card_no, "Card No",class: "control-label" ) %>
             <%= text_field_tag :card_no, nil, class: 'form-control'%>
           </div>
 
@@ -20,11 +20,25 @@
 
           <div class="form-group">
             <%= label_tag(:expiration_month, "Expire Month",class: "control-label" ) %>
-            <%= select :expiration_month,{}, months,{},class: "form-control" %>
+            <%= select_tag :expiration_month, options_for_select(months), class: "form-control" %>
           </div>
           <div class="form-group">
             <%= label_tag(:expiration_year, "Expire Year",class: "control-label" ) %>
-            <%= select :expiration_year,{}, years,{}, class: "form-control" %>
+            <%= select_tag :expiration_year, options_for_select(years), class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= label_tag(:address, "Address",class: "control-label" ) %>
+            <%= text_field_tag :address, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:city, "City",class: "control-label" ) %>
+            <%= text_field_tag :city, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:zip, "Zip",class: "control-label" ) %>
+            <%= text_field_tag :zip, nil, class: 'form-control'%>
           </div>
           <div class="form-group">
             <%= submit_tag "Charge Stripe", class: "btn btn-primary" %>
