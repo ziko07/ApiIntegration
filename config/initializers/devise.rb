@@ -265,4 +265,8 @@ Devise.setup do |config|
 
   require "omniauth-facebook"
   config.omniauth :facebook, "786472941450571", "12a26ec41168e7fbbbe8d5e5552e0319",{:client_options => {:ssl => {:verify => false}}}
+  require "omniauth-google-oauth2"
+  config.omniauth :google_oauth2, "620483118272-fgoinm2tq92t73r4ne2vkh2ulumh5fpn.apps.googleusercontent.com", "QXdPVZrR984DwZlGr1MdrUq8", {:client_options => {:ssl => {:verify => false}}, :access_type => "offline", :approval_prompt => ""}
+  require 'omniauth-twitter'
+  config.omniauth :twitter ,"QbTLe1Xw1YHBToAvVbga3XlvZ", "7dYKa5Xetg7Q7J0Rf8pDQBO698cDEqJGO5hhRrH2YvRgY7gpSe"
 end

@@ -239,4 +239,30 @@
   color: #fff;
 }
 
+.header{
+  width: 100%;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
+.list_item_header{
+  width: 33%;
+  border: 2px solid #c0c0c0;
+  margin-top: 15px;
+  display: inline-block;
+  border-radius: 6px;
+  vertical-align: top;
+  min-height: 245px;
+}
+.item_list{
+  padding: 0;
+}
+.item_list li{
+  list-style: none;
+  padding: 10px;
+}
+.list_content{
+  width: 100%;
+}

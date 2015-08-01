@@ -1,0 +1,5 @@
+<% if @result == 'OK' %>
+    <h1>Successfully charged $<%= @amount / 100 %> to the credit card</h1>
+<% else %>
+    <h1><%= @result %></h1>
+<% end %>

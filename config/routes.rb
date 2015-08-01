@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'payment_paypal' => 'payments#payment_paypal'
   get 'payment_stripe' => 'payments#payment_stripe'
+  get 'payment_with_2co' => 'payments#payment_with_2co'
+  get 'payment_with_2co_paypal' => 'payments#payment_with_2co_paypal'
   get 'payment_with_paypal' => 'payments#payment_with_paypal'
   get 'payment_with_stripe' => 'payments#payment_with_stripe'
   get 'payment_cancel' => 'payments#payment_cancel'

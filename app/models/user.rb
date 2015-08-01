@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
+        puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        puts(data.inspect)
+        puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         user = User.create(
                            :provider => access_token.provider,
                            :email => data["email"],
@@ -57,6 +60,9 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
+        puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        puts(auth.inspect)
+        puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         user = User.create(provider:auth.provider,
                            uid:auth.uid,
                            email:auth.uid+"@twitter.com",

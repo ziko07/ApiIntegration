@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
 
   def create
     ActiveMerchant::Billing::Base.mode = :test
-
+    puts('here')
     gateway = ActiveMerchant::Billing::TrustCommerceGateway.new(
         :login => 'TestMerchant',
         :password => 'password')
@@ -23,19 +23,19 @@ class PaymentsController < ApplicationController
         :number => payment_params[:credit_card_number],
         :month => payment_params[:expiration_month], #for test cards, use any date in the future
         :year => payment_params[:expiration_year],
-        :verification_value => '000')
+        :verification_value => '123')
 
 # Validating the card automatically detects the card type
     if credit_card.validate.empty?
-      # Capture $10 from the credit card
+      puts('here');
       response = gateway.purchase(@amount, credit_card)
-
+        puts(response.inspect)
       if response.success?
         @result = 'OK'
         puts "Successfully charged $#{sprintf("%.2f", @amount / 100)} to the credit card #{credit_card.display_number}"
       else
-        @result = @response.message
-        raise StandardError, @response.message
+        @result = response.message
+        raise StandardError, response.message
 
       end
     end
@@ -58,18 +58,18 @@ class PaymentsController < ApplicationController
                                                 return_url: payment_success_url,
                                                 currency: "USD",
                                                 allow_guest_checkout: true,
-                                                items: [{name: "Order", description: "Order description", quantity: "1", amount: amount}]}
+                                                items: [{"name" => "Order", "description"=> "Order description"," quantity" => "10", "amount" => amount}]}
       )
       redirect_to express_getway.redirect_url_for(response.token)
 
   end
 
   def paypal_success
-    details = EXPRESS_GATEWAY.details_for(params[:token])
+    @details = EXPRESS_GATEWAY.details_for(params[:token])
   end
 
   def paypal_cancel
-
+    @details = EXPRESS_GATEWAY.details_for(params[:token])
   end
 
   def payment_with_paypal
@@ -77,6 +77,14 @@ class PaymentsController < ApplicationController
   end
 
   def payment_with_stripe
+
+  end
+
+  def payment_with_2co
+
+  end
+
+  def payment_with_2co_paypal
 
   end
 
@@ -97,11 +105,10 @@ class PaymentsController < ApplicationController
     }}
 
     response = transaction.purchase((amount * 100).to_i, paymentInfo, purchaseOptions)
-    puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-    puts(response.inspect)
-    puts('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
     if response.success? then
-
+      @result = 'OK'
+    else
+      @result = response.message
     end
   end
 
