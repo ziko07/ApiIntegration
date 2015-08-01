@@ -89,8 +89,8 @@ class PaymentsController < ApplicationController
   end
 
   def payment_stripe
-    transaction = ActiveMerchant::Billing::StripeGateway.new(:login => 'sk_test_WMwFf4Euu4Hi6570qcEFy1na')
-      amount = params[:amount].to_i
+  transaction = ActiveMerchant::Billing::StripeGateway.new(:login => 'sk_test_WMwFf4Euu4Hi6570qcEFy1na')
+      @amount = params[:amount].to_i
     paymentInfo = ActiveMerchant::Billing::CreditCard.new(
         :number             => params[:card_no],
         :month              => params[:expiration_month],
@@ -104,7 +104,7 @@ class PaymentsController < ApplicationController
         :zip      => params[:zip]
     }}
 
-    response = transaction.purchase((amount * 100).to_i, paymentInfo, purchaseOptions)
+    response = transaction.purchase((@amount * 100).to_i, paymentInfo, purchaseOptions)
     if response.success? then
       @result = 'OK'
     else
