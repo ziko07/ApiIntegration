@@ -8,7 +8,6 @@ class PaymentsController < ApplicationController
 
   def create
     ActiveMerchant::Billing::Base.mode = :test
-    puts('here')
     gateway = ActiveMerchant::Billing::TrustCommerceGateway.new(
         :login => 'TestMerchant',
         :password => 'password')
@@ -27,7 +26,6 @@ class PaymentsController < ApplicationController
 
 # Validating the card automatically detects the card type
     if credit_card.validate.empty?
-      puts('here');
       response = gateway.purchase(@amount, credit_card)
         puts(response.inspect)
       if response.success?
@@ -80,12 +78,51 @@ class PaymentsController < ApplicationController
 
   end
 
+  def payment_with_britnee
+    @client_token = Braintree::ClientToken.generate
+  end
+
+  def payment_britnee
+    @result = Braintree::Transaction.sale(
+        amount: "10.00",
+        payment_method_nonce: params[:payment_method_nonce]
+    )
+    if @result.class != Braintree::SuccessfulResult
+      render 'payment_with_britnee'
+    end
+  end
+
   def payment_with_2co
 
   end
 
-  def payment_with_2co_paypal
-
+  def payment_with_2co_complete
+    Twocheckout::API.credentials = {
+        :seller_id => '901286202',
+        :private_key => '0E0EC0AB-4BA3-4637-82D4-E37AC47A603A',
+        :sandbox => true
+    }
+    @two_co_params = {
+        :merchantOrderId => '1',
+        :token           => params[:token],
+        :currency        => 'USD',
+        :total           => '100',
+        :billingAddr     => {
+            :name => 'Joe Flagster',
+            :addrLine1 => '123 Main Street',
+            :city => 'Townsville',
+            :state => 'OH',
+            :zipCode => '43123',
+            :country => 'USA',
+            :email => 'zikoku07@gmail.com'
+        }
+    }
+    begin
+      @result = Twocheckout::Checkout.authorize(@two_co_params)
+    rescue Exception => e
+      puts "2co Error: #{e.message}"
+      flash[:error] = e.message
+    end
   end
 
   def payment_stripe

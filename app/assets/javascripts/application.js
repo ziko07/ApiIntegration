@@ -17,10 +17,13 @@
 
 $(document).ready(function() {
     var element = $('.centralized');
-    win_height = $(window).height();
-    element_offset = element.offset();
-    new_height = (win_height - (element_offset.top + element.height() + 80)) / 2;
-    element.css('margin-top', new_height);
+    if (element.length > 0){
+        win_height = $(window).height();
+        element_offset = element.offset();
+        new_height = (win_height - (element_offset.top + element.height() + 80)) / 2;
+        element.css('margin-top', new_height);
+    }
+
 });
 
 

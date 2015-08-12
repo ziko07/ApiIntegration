@@ -1,16 +1,22 @@
+<h1 class="page-top-title">Payment With Stripe</h1>
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
-    <h1>New Payment</h1>
-    <div class="well">
-      <%= form_tag("/payment_2co", method: "get") do %>
+    <div class="well ">
+      <%= form_tag("/payment_with_2co_complete", method: "get", id: "payment_co") do %>
+          <%= hidden_field_tag('token') %>
           <div class="form-group">
-            <%= label_tag(:first_name, "First Name",class: "control-label" ) %>
-            <%= text_field_tag :first_name , nil, class: 'form-control'%>
+            <%= label_tag(:name, "First Name",class: "control-label" ) %>
+            <%= text_field_tag :name , nil, class: 'form-control'%>
           </div>
 
           <div class="form-group">
-            <%= label_tag(:last_name, "Last Name",class: "control-label" ) %>
-            <%= text_field_tag :last_name, nil, class: 'form-control'%>
+            <%= label_tag(:card_no, "Card No",class: "control-label" ) %>
+            <%= text_field_tag :card_no, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:cvv, "Cvv No",class: "control-label" ) %>
+            <%= text_field_tag :cvv, nil, class: 'form-control'%>
           </div>
 
           <div class="form-group">
@@ -19,11 +25,31 @@
           </div>
 
           <div class="form-group">
-            <%= label_tag(:quantity, "Quantity",class: "control-label" ) %>
-            <%= text_field_tag :quantity, nil, class: 'form-control'%>
+            <%= label_tag(:exp_month, "Expiration month",class: "control-label" ) %>
+            <%= text_field_tag :exp_month, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:exp_year, "Expiration month",class: "control-label" ) %>
+            <%= text_field_tag :exp_year, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:address, "Address",class: "control-label" ) %>
+            <%= text_field_tag :address, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:city, "City",class: "control-label" ) %>
+            <%= text_field_tag :city, nil, class: 'form-control'%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag(:zip, "Zip",class: "control-label" ) %>
+            <%= text_field_tag :zip, nil, class: 'form-control'%>
           </div>
           <div class="form-group">
-            <%= image_submit_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif") %>
+            <%= submit_tag "Charge 2CO", class: "btn btn-primary" %>
           </div>
 
       <% end %>
@@ -31,3 +57,58 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
+
+<script type="text/javascript">
+
+    // Called when token created successfully.
+    var successCallback = function(data) {
+        var myForm = document.getElementById('payment_co');
+
+        // Set the token as the value for the token input
+        myForm.token.value = data.response.token.token;
+
+        // IMPORTANT: Here we call `submit()` on the form element directly instead of using jQuery to prevent and infinite token request loop.
+        myForm.submit();
+    };
+
+    // Called when token creation fails.
+    var errorCallback = function(data) {
+        if (data.errorCode === 200) {
+            // This error code indicates that the ajax call failed. We recommend that you retry the token request.
+        } else {
+            alert(data.errorMsg);
+        }
+    };
+
+    var tokenRequest = function() {
+        // Setup token request arguments;
+        var args = {
+            sellerId: "901286202",
+            publishableKey: "B097A77E-12AC-40FC-881E-053238DD33AA",
+            ccNo: $("#card_no").val(),
+            cvv: $("#cvv").val(),
+            expMonth: $("#exp_month").val(),
+            expYear: $("#exp_year").val()
+        };
+
+        // Make the token request
+        TCO.requestToken(successCallback, errorCallback, args);
+    };
+
+    $(function() {
+        // Pull in the public encryption key for our environment
+        TCO.loadPubKey('sandbox');
+
+        $("#payment_co").submit(function(e) {
+            // Call our token request function
+            alert('test');
+            tokenRequest();
+
+            // Prevent form from submitting
+            return false;
+        });
+    });
+
+</script>
+

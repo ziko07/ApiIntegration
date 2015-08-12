@@ -1,0 +1,16 @@
+
+<h1>Braintree Credit Card Transaction Form</h1>
+  <%= form_tag("/payment_britnee", method: "post",:html => {:id => 'checkout-form'}) do %>
+      <div id="dropin-container"></div>
+        <input id="submit" type="submit" />
+      </div>
+<% end %>
+
+
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+
+<script type="text/javascript">
+    braintree.setup("<%= @client_token %>", "dropin", {
+        container: "dropin-container"
+    });
+</script>
