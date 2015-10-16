@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get 'opengraph' => 'welcome#opengraph'
     get 'dashboard' => 'welcome#dashboard'
     get 'home_page' => 'welcome#home_page'
-    post 'un_sub' => 'welcome#un_sub'
+    get 'un_sub' => 'welcome#un_sub'
 
    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   # Example of regular route:
