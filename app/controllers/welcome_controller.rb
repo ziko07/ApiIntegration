@@ -40,9 +40,20 @@ class WelcomeController < ApplicationController
   end
 
   def un_sub
+    item = ''
   logger.info "parameters: #{params.inspect}"
   Rails.logger.info "parameters: #{params.inspect}"
     puts "parameters: #{params.inspect}"
+  params.each do |key,value|
+    item = item << value
+    puts(item)
+  end
+    content = Content.new(:content => item)
+    if request.post?
+         content.save
+       end
+  @content = Content.all
+
   end
 
   def opengraph
