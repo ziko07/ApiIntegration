@@ -40,7 +40,9 @@ class WelcomeController < ApplicationController
   end
 
   def un_sub
-  logger.info params.inspect
+  logger.info "parameters: #{params.inspect}"
+  Rails.logger.info "parameters: #{params.inspect}"
+    puts "parameters: #{params.inspect}"
   end
 
   def opengraph
