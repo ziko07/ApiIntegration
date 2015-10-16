@@ -1,4 +1,6 @@
 class WelcomeController < ApplicationController
+
+  protect_from_forgery except: :un_sub
   def index
   end
 
