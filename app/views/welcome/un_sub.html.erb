@@ -1,3 +1,6 @@
 this is test
-
-<%= params.inspect %>
+<% if @content.present? %>
+<% @content.each do |content| %>
+    <% content.content %>
+<%end %>
+<%end %>
