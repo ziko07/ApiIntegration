@@ -34,6 +34,13 @@ class WelcomeController < ApplicationController
 
   end
 
+  def home_page
+  end
+
+  def un_sub
+
+  end
+
   def opengraph
     render :layout=> 'opengraph_protocol'
   end
