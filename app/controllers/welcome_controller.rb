@@ -38,7 +38,7 @@ class WelcomeController < ApplicationController
   end
 
   def un_sub
-
+  logger.info params.inspect
   end
 
   def opengraph
