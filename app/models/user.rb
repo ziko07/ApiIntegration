@@ -9,19 +9,17 @@ class User < ActiveRecord::Base
   COLUMN_SEPARATORS = [",", ";", "\t", ":", "|", " "]
 
   def self.import_members(file)
-    puts("hree")
-    puts(File.open(file.tempfile).first.encode("UTF-8", invalid: :replace))
     first_line = File.open(file.tempfile).first.encode("UTF-8", invalid: :replace)
-    puts("here1")
     first_line = first_line.squish
-    puts("here2")
     return nil unless first_line
-    puts("here3")
     separator = {}
     COLUMN_SEPARATORS.each { |col_sep| separator[col_sep] = first_line.scan(col_sep).length }
     separator = separator.sort { |a, b| b[1] <=> a[1] }
     @col_sep = separator.size > 0 ? separator[0][0] : nil
-    puts("here4")
+    puts("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    puts(@col_sep.inspect)
+    puts("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    header = []
     case File.extname(file.original_filename)
       when ".csv" then
         begin
@@ -48,24 +46,95 @@ class User < ActiveRecord::Base
       else
         raise "Unknown file type: #{file.original_filename}"
     end
-    puts("here5")
+
     row_length = parsed_file.map(&:length).max
     first_row = parsed_file.row(1).compact
-    puts("here6")
-    header = first_row
-    rows = []
-    (1..parsed_file.last_row).each do |i|
-      begin
-        puts("test#{header.inspect}")
-        row = Hash[[header, parsed_file.row(i)].transpose]
-        puts("row #{row.inspect}")
-            rows << row
-      rescue => e
-        puts "**** #{e.message} on row #{i} ****"
-        next
+
+    first_row.each_with_index do |cell, i|
+      if cell =~ /@/
+        @email_cell = i
       end
     end
-    return rows
+
+    if @email_cell.present?
+      # file without header
+      (1..row_length).each do |i|
+        if @email_cell == i - 1
+          header << "email"
+        else
+          header << "field_#{i}"
+        end
+      end
+      rows = []
+      process_result = Hash.new
+      emails = []
+      invalid_rows = []
+      (1..parsed_file.last_row).each do |i|
+        begin
+          row = Hash[[header, parsed_file.row(i)].transpose]
+          email = row.fetch("email").strip
+          email = email.squish
+          unless emails.include?(email)
+            if email =~ /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/
+              rows << row
+            else
+              row["id"] = i.to_s
+              puts "**** wrong email on row #{i} #{row} ****"
+              invalid_rows << row
+            end
+            emails << row.fetch("email")
+          end
+        rescue => e
+          puts "**** #{e.message} on row #{i} ****"
+          next
+        end
+      end
+      process_result[:valid_rows] = rows
+      process_result[:invalid_rows] = invalid_rows
+      return process_result
+      # invalid_rows if !invalid_rows.empty?
+    else
+      header = first_row
+      parsed_file.row(2).each_with_index do |cell, i|
+        if cell =~ /@/
+          @email_cell = i
+        end
+      end
+      header[@email_cell] = "email"
+      rows = []
+      process_result = Hash.new
+      emails = []
+      invalid_rows = []
+      (2..parsed_file.last_row).each do |i|
+        #begin
+        puts(parsed_file.row(i).inspect)
+          row = Hash[[header, parsed_file.row(i)].transpose]
+          email = row.fetch("email").strip
+          email = email.squish
+          unless emails.include?(email)
+            if email =~ /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/
+              rows << row
+            else
+              row["id"] = i.to_s
+              puts "**** wrong email on row #{i} #{row} ****"
+              invalid_rows << row
+            end
+            emails << row.fetch("email")
+          end
+        #rescue => e
+          #puts "**** #{e.message} on row #{i} ****"
+          #next
+        #end
+      end
+      return rows
+      # invalid_rows if !invalid_rows.empty?
+    end
+
+    first_row.each_with_index do |cell, i|
+      if cell =~ /@/
+        @email_cell = i
+      end
+    end
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
