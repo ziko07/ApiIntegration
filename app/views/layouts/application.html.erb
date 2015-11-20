@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>ApiIntegration</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application',  'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -29,8 +29,9 @@
         <li><%= link_to(raw('<i class="fa fa-facebook"> </i> FaceBook'), facebook_share_path, :method => :get) %></li>
         <li> <%= link_to(raw('<i class="fa fa-google-plus"> </i> Google+'), gmail_share_path, :method => :get) %></li>
         <li><%= link_to(raw('<i class="fa fa-twitter"> </i> Twitter'), twitter_share_path, :method => :get) %></li>
+        <li><%= link_to(raw('<i class="fa fa-twitter"> </i> Twitter'), email_upload_path, :method => :get) %></li>
       </ul>
-    </li>
+    </li>d
     <li>
       <a href="#"><i class="fa fa-usd"></i> Payment</a>
       <ul class="submenu hidden">

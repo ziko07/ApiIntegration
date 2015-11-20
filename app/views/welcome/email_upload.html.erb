@@ -1,0 +1,7 @@
+<div class="bg-darken-1 mt2 p2">
+  <h4>Import subscribers</h4>
+  <%= form_tag import_list_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import csv file", class: "button button-outline button-small" %>
+  <% end %>
+</div>

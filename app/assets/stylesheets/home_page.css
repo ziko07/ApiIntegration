@@ -1,0 +1,15 @@
+.content {
+    width: 100%;
+}
+
+.header_content{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #adadad;
+    color: #fff;
+    line-height: 10px;
+    padding: 38px 20px 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 90;
+}

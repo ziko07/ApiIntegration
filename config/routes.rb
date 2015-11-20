@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     get 'dashboard' => 'welcome#dashboard'
     get 'home_page' => 'welcome#home_page'
     get 'un_sub' => 'welcome#un_sub'
+    get 'email_upload' => 'welcome#email_upload'
+    post 'import_list' => 'welcome#import_list'
     match 'un_sub', to: 'welcome#un_sub', via: [:get, :post]
 
    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
