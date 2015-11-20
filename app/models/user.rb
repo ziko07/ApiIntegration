@@ -9,13 +9,18 @@ class User < ActiveRecord::Base
   COLUMN_SEPARATORS = [",", ";", "\t", ":", "|", " "]
 
   def self.import_members(file)
+    puts("here")
     first_line = File.open(file.tempfile).first.encode("UTF-8", invalid: :replace)
+    puts("here1")
     first_line = first_line.squish
+    puts("here2")
     return nil unless first_line
+    puts("here3")
     separator = {}
     COLUMN_SEPARATORS.each { |col_sep| separator[col_sep] = first_line.scan(col_sep).length }
     separator = separator.sort { |a, b| b[1] <=> a[1] }
     @col_sep = separator.size > 0 ? separator[0][0] : nil
+    puts("here4")
     case File.extname(file.original_filename)
       when ".csv" then
         begin
@@ -42,9 +47,10 @@ class User < ActiveRecord::Base
       else
         raise "Unknown file type: #{file.original_filename}"
     end
+    puts("here5")
     row_length = parsed_file.map(&:length).max
     first_row = parsed_file.row(1).compact
-
+    puts("here6")
     header = first_row
     rows = []
     (1..parsed_file.last_row).each do |i|
