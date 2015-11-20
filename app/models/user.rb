@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   COLUMN_SEPARATORS = [",", ";", "\t", ":", "|", " "]
 
   def self.import_members(file)
-    puts(File.open(file.tempfile).first)
+    puts("hree")
+    puts(File.open(file.tempfile).first.encode("UTF-8", invalid: :replace))
     first_line = File.open(file.tempfile).first.encode("UTF-8", invalid: :replace)
     puts("here1")
     first_line = first_line.squish
@@ -55,7 +56,9 @@ class User < ActiveRecord::Base
     rows = []
     (1..parsed_file.last_row).each do |i|
       begin
+        puts("test#{header.inspect}")
         row = Hash[[header, parsed_file.row(i)].transpose]
+        puts("row #{row.inspect}")
             rows << row
       rescue => e
         puts "**** #{e.message} on row #{i} ****"
