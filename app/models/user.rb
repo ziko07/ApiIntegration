@@ -9,9 +9,7 @@ class User < ActiveRecord::Base
   COLUMN_SEPARATORS = [",", ";", "\t", ":", "|", " "]
 
   def self.import_members(file)
-    puts("here")
-    puts(file.tempfile)
-    puts(File.open(file.tempfile).first.encode("UTF-8", invalid: :replace))
+    puts(File.open(file.tempfile).first)
     first_line = File.open(file.tempfile).first.encode("UTF-8", invalid: :replace)
     puts("here1")
     first_line = first_line.squish
