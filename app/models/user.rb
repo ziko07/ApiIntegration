@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   def self.import_members(file)
     puts("here")
+    puts(file.tempfile)
+    puts(File.open(file.tempfile).first.encode("UTF-8", invalid: :replace))
     first_line = File.open(file.tempfile).first.encode("UTF-8", invalid: :replace)
     puts("here1")
     first_line = first_line.squish
